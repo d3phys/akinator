@@ -19,5 +19,14 @@ size_t extract_tokens(char *const buf, char **tokens,
  */
 size_t occurs(const char *const str, const char ch);
 
+/*
+ * Removes spaces at the beginning and at the end of the 
+ * line (string terminated with '\n') by placing '\0' symbol.
+ * Additionally sets 'end' pointer -- the symbol after last '\0'.
+ *
+ * Returns a new string beginning. 
+ */
+char *strip_spaces(char *str, char **end = nullptr);
+
 
 #endif /* PARSE_H_ */
