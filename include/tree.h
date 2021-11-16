@@ -4,7 +4,7 @@
 struct node {
         node *left  = nullptr;
         node *right = nullptr;
-        char *data;
+        const char *data;
 };
 
 /*
