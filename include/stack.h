@@ -11,9 +11,8 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-#include <tree.h>
 
-typedef node * item_t;
+typedef void * item_t;
 
 #define UNPROTECT
 
@@ -139,6 +138,19 @@ void push_stack(stack_t *const stk, const item_t item, int *const error = nullpt
  * @return 'Popped' item
  */
 item_t pop_stack(stack_t *const stack, int *const error = nullptr);
+
+/**
+ * @brief Gives top stack item.
+ *
+ * @param stk        Stack check from 
+ * @param[out] error Error proceeded
+ *
+ * This function works with valid and not empty stack only.
+ * In case of an error, nothing happens to the stack.
+ *
+ * @return 'Top' stack item
+ */
+item_t check_stack(stack_t *const stack, int *const error = nullptr);
 
 
 #endif /* STACK_H_ */

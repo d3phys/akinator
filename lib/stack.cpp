@@ -164,6 +164,43 @@ finally:
         return stk;
 }
 
+item_t check_stack(stack_t *const stk, int *const error)
+{
+        assert(stk);
+        int err = 0;
+
+        item_t item = POISON;
+
+#ifndef UNPROTECT
+$       (err = verify_stack(stk);)
+#endif /* UNPROTECT */
+
+        if (err) {
+                fprintf(logs, "Can't pop item from invalid stack\n");
+                goto finally;
+        }
+
+        if (stk->size == 0) {
+                fprintf(logs, "Can't check an empty stack\n");
+                err = STK_EMPTY_POP;
+                goto finally;
+        }
+
+        item = stk->items[stk->size - 1];
+
+#ifndef UNPROTECT
+$       (err = verify_stack(stk);)
+#endif /* UNPROTECT */
+
+finally:
+        if (err) {
+                set_error(error, err);
+                log_dump(stk);
+        }
+
+        return item;
+}
+
 void push_stack(stack_t *const stk, const item_t item, int *const error) 
 {
         assert(stk);
